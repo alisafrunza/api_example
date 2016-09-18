@@ -1,0 +1,11 @@
+<% @logins.each do |login| %>
+	<%= login.provider_name %>
+	<% if can_be_refreshed?(login) %>
+		<%= button_to "refresh", login, method: :put %>
+	<% else %>
+		<%= button_to "refresh", login, method: :put, disabled: true %>
+	<% end %>
+
+	<%= button_to "delete", login, method: :delete%>
+<% end %>
+
