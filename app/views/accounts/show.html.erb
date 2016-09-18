@@ -1,0 +1,27 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+  <li class="breadcrumb-item"><%= link_to "All logins", login_index_path %></li>
+	<li class="breadcrumb-item"><%= link_to @current_account.login.provider_name, login_path(@current_account.login) %></li>
+  <li class="breadcrumb-item active"><%= @current_account.name %></li>
+</ol>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Amount</th>
+      <th>Currency code</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+		<% @transactions.each do |transaction| %>
+	    <tr>
+	      <td><%= transaction.description%></td>
+	      <td><%= transaction.amount %></td>
+	      <td><%= transaction.currency_code %></td>
+	      <td><%= transaction.made_on %></td>
+	      <td><%= transaction.status %></td>
+	    </tr>
+		<% end %>
+  </tbody>
+</table>

@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160918141033) do
+ActiveRecord::Schema.define(version: 20160918174841) do
+
+  create_table "accounts", force: :cascade do |t|
+    t.integer  "salt_id"
+    t.string   "name"
+    t.string   "nature"
+    t.decimal  "balance"
+    t.string   "currency_code"
+    t.text     "extra"
+    t.integer  "login_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "accounts", ["login_id"], name: "index_accounts_on_login_id"
+  add_index "accounts", ["salt_id"], name: "index_accounts_on_salt_id"
 
   create_table "logins", force: :cascade do |t|
     t.string   "country_code"
@@ -32,7 +47,26 @@ ActiveRecord::Schema.define(version: 20160918141033) do
   end
 
   add_index "logins", ["customer_id"], name: "index_logins_on_customer_id"
-  add_index "logins", ["salt_id"], name: "index_logins_on_salt_id", unique: true
+  add_index "logins", ["salt_id"], name: "index_logins_on_salt_id"
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer  "salt_id"
+    t.boolean  "duplicated"
+    t.string   "mode"
+    t.string   "status"
+    t.datetime "made_on"
+    t.decimal  "amount"
+    t.string   "currency_code"
+    t.string   "description"
+    t.string   "category"
+    t.text     "extra"
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "transactions", ["account_id"], name: "index_transactions_on_account_id"
+  add_index "transactions", ["salt_id"], name: "index_transactions_on_salt_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

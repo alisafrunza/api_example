@@ -46,6 +46,16 @@ class Saltedge::Client
 		delete(url)
 	end
 
+	def get_accounts(login)
+		url = "accounts?login_id=#{login.salt_id}"
+		get(url)
+	end
+
+	def get_transactions(login)
+		url = "transactions?login_id=#{login.salt_id}"
+		get(url)
+	end
+
 private
 	def build_url(partial_url)
 		@root_url + partial_url
@@ -61,5 +71,9 @@ private
 
 	def delete(url)
 		Saltedge.new.request("DELETE", build_url(url))
+	end
+
+	def get(url)
+		Saltedge.new.request("GET", build_url(url))
 	end
 end

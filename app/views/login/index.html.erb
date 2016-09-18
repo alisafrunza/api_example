@@ -1,11 +1,35 @@
-<% @logins.each do |login| %>
-	<%= login.provider_name %>
-	<% if can_be_refreshed?(login) %>
-		<%= button_to "refresh", login, method: :put %>
-	<% else %>
-		<%= button_to "refresh", login, method: :put, disabled: true %>
-	<% end %>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+  <li class="breadcrumb-item active">All logins</li>
+</ol>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Bank name</th>
+      <th>Actions</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+		<% @logins.each do |login| %>
+	    <tr>
+	    	<td><%= link_to login.provider_name, login_path(login) %></td>
+	    	<td>
+					<% if can_be_refreshed?(login) %>
+						<%= button_to "refresh", login, method: :put, class: "btn" %>
+					<% else %>
+						<%= button_to "refresh", login, method: :put, disabled: true, class: "btn" %>
+					<% end %>
+				</td>
 
-	<%= button_to "delete", login, method: :delete%>
+				<td><%= button_to "Refresh accounts", refresh_accounts_login_path(login), class: "btn" %></td>
+				<td><%= button_to "delete", login, method: :delete, class: "btn" %></td>
+	    </tr>
+		<% end %>
+  </tbody>
+</table>
+<% @logins.each do |login| %>
+
 <% end %>
 

@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many 		 :logins, primary_key: :salt_id, foreign_key: :customer_id
+  has_many 		 :logins, primary_key: :salt_id, foreign_key: :customer_id, dependent: :destroy
+  has_many     :accounts, through: :logins
   after_create :create_customer
 
 private

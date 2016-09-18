@@ -3,8 +3,14 @@ Rails.application.routes.draw do
   devise_for :users
 
   authenticated :user do
-    resources  :login
+    resources  :login do
+      member do
+        post :refresh_accounts
+      end
+      resources :accounts, shallow: true, only: :show
+    end
   end
+
 
   root "welcome#index"
 
