@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_many 		 :logins, primary_key: :salt_id, foreign_key: :customer_id, dependent: :destroy
   has_many     :accounts, through: :logins
+  has_many     :tokens, primary_key: :salt_id, foreign_key: :customer_id, dependent: :destroy
   after_create :create_customer
 
 private

@@ -13,6 +13,18 @@ class Saltedge::Client
 		post(url, payload)
 	end
 
+	def create_token(data={})
+		url = 'tokens/create'
+		payload = {
+			data: {
+				customer_id: data[:customer_id],
+				fetch_type: "recent"
+			}
+		}
+
+		create(url, payload)
+	end
+
 	def create_login(data={})
 		url = "logins"
 		payload = {
@@ -59,6 +71,10 @@ class Saltedge::Client
 private
 	def build_url(partial_url)
 		@root_url + partial_url
+	end
+
+	def create(url, payload)
+		Saltedge.new.request("POST", build_url(url), payload)
 	end
 
 	def post(url, payload)

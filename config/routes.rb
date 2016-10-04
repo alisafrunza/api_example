@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       end
       resources :accounts, shallow: true, only: :show
     end
+    resources :token
   end
 
 
