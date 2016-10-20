@@ -9,15 +9,31 @@ class CallbacksController < ApplicationController
 		login = Login.find_or_create_by(salt_id: login_hash["salt_id"])
 		login.update_attributes(login_hash)
 
-		accounts = Saltedge::Client.new.get_accounts(current_login)
+		accounts = Saltedge::Client.new.get_accounts(login)
 		save_fresh_accounts(accounts)
-		transactions = Saltedge::Client.new.get_transactions(current_login)
+		transactions = Saltedge::Client.new.get_transactions(login)
 		save_fresh_transactions(transactions)
 
 		render :nothing => true
 		#pseudo
 		#login exists fetch login compair attributes
 		#login doesn't exist, create login
+	end
+
+	def save_fresh_accounts(accounts)
+		accounts.each do |account|
+			account["salt_id"] = account.delete("id")
+			db_account = Account.find_or_create_by(salt_id: account["salt_id"])
+			db_account.update_attributes(account)
+		end
+	end
+
+	def save_fresh_transactions(transactions)
+		transactions.each do |transaction|
+			transaction["salt_id"] = transaction.delete("id")
+			db_transaction = Transaction.find_or_create_by(salt_id: transaction["salt_id"])
+			db_transaction.update_attributes(transaction)
+		end
 	end
 
 	def fail
