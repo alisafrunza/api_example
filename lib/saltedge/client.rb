@@ -18,11 +18,17 @@ class Saltedge::Client
 		payload = {
 			data: {
 				customer_id: data[:customer_id],
-				fetch_type: "recent"
+				fetch_type: "recent",
+				return_login_id: true
 			}
 		}
 
 		create(url, payload)
+	end
+
+	def show_login(login_id)
+		url = "logins/#{login_id}"
+		get_login(url)
 	end
 
 	def create_login(data={})
@@ -90,6 +96,10 @@ private
 	end
 
 	def get(url)
+		Saltedge.new.request("GET", build_url(url))
+	end
+
+	def get_login(url)
 		Saltedge.new.request("GET", build_url(url))
 	end
 end

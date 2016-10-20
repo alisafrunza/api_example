@@ -1,8 +1,0 @@
-<ol class="breadcrumb">
-  <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
-  <li class="breadcrumb-item active">All tokens</li>
-</ol>
-
-	<% @tokens.each do |token| %>
-		<%= token.connect_url %>
-	<% end %>

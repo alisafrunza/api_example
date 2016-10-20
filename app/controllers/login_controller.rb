@@ -1,11 +1,23 @@
 class LoginController < ApplicationController
 
 	def index
+		if params[:login_id]
+			login_hash = Saltedge::Client.new.show_login(params[:login_id])
+			login_hash["salt_id"] = login_hash.delete("id")
+			login = Login.find_or_create_by(salt_id: login_hash["salt_id"])
+			login.update_attributes(login_hash)
+		end
+
 		@logins = current_user.logins
 	end
 
 	def show
 		@accounts = current_login.accounts
+	end
+
+	def create_token
+		token = Saltedge::Client.new.create_token(token_params)
+		redirect_to token["connect_url"]
 	end
 
 	def create
@@ -62,7 +74,16 @@ private
 		{
 			customer_id: current_user.salt_id,
 			username: params["username"],
-			password: params["password"]
+			password: params["password"],
+			provider_code: params["provider_code"],
+			country_code: params["country_code"]
+		}
+	end
+
+	def token_params
+		{
+			customer_id: current_user.salt_id,
+			return_login_id: true
 		}
 	end
 end
