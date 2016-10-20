@@ -2,8 +2,8 @@ class Saltedge
   attr_reader :client_id, :service_secret
 
   def initialize
-    @client_id        = ENV["CLIENT ID"]
-    @service_secret   = ENV["SERVICE SECRET"]
+    @client_id        = ENV["CLIENT_ID"]
+    @service_secret   = ENV["SERVICE_SECRET"]
   end
 
   def request(method, url, params={})

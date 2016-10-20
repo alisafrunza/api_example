@@ -2,6 +2,14 @@ Rails.application.routes.draw do
 
   devise_for :users
 
+  namespace :api do
+    resources :callbacks, only: [] do
+      collection do
+        post :success, :fail
+      end
+    end
+  end
+
   authenticated :user do
     resources  :login do
       member do
@@ -9,6 +17,7 @@ Rails.application.routes.draw do
       end
       resources :accounts, shallow: true, only: :show
     end
+    resources :token
   end
 
 
