@@ -3,8 +3,6 @@ class Api::CallbacksController < ApplicationController
 	skip_before_filter :authenticate_user!
 
 	def success
-		pp params
-
 		login_hash = Saltedge::Client.new.show_login(params[:login_id])
 		login_hash["salt_id"] = login_hash.delete("id")
 		login = Login.find_or_create_by(salt_id: login_hash["salt_id"])
@@ -16,9 +14,6 @@ class Api::CallbacksController < ApplicationController
 		save_fresh_transactions(transactions)
 
 		render :nothing => true
-		#pseudo
-		#login exists fetch login compair attributes
-		#login doesn't exist, create login
 	end
 
 	def save_fresh_accounts(accounts)
