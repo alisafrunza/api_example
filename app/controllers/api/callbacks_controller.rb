@@ -3,7 +3,12 @@ class Api::CallbacksController < ApplicationController
 	skip_before_filter :authenticate_user!
 
 	def success
+		puts params
+
 		login_hash = Saltedge::Client.new.show_login(params[:login_id])
+
+		puts login_hash
+
 		login_hash["salt_id"] = login_hash.delete("id")
 		login = Login.find_or_create_by(salt_id: login_hash["salt_id"])
 		login.update_attributes(login_hash)
