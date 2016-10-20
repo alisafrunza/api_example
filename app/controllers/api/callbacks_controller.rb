@@ -5,7 +5,7 @@ class Api::CallbacksController < ApplicationController
 	def success
 		puts params
 
-		login_hash = Saltedge::Client.new.show_login(params[:login_id])
+		login_hash = Saltedge::Client.new.show_login(params[:login_id])[:data]
 
 		puts login_hash
 
