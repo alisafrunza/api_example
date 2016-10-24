@@ -12,21 +12,21 @@
     </tr>
   </thead>
   <tbody>
-		<% @logins.each do |login| %>
-	    <tr>
-	    	<td><%= link_to login.provider_name, login_path(login) %></td>
-	    	<td>
-					<% if can_be_refreshed?(login) %>
-						<%= button_to "refresh", login, method: :put, class: "btn" %>
-					<% else %>
-						<%= button_to "refresh", login, method: :put, disabled: true, class: "btn" %>
-					<% end %>
-				</td>
+    <% @logins.each do |login| %>
+      <tr>
+        <td><%= link_to login.provider_name, login_path(login) %></td>
+        <td>
+          <% if can_be_refreshed?(login) %>
+            <%= button_to "refresh", login, method: :put, class: "btn" %>
+          <% else %>
+            <%= button_to "refresh", login, method: :put, disabled: true, class: "btn" %>
+          <% end %>
+        </td>
 
-				<td><%= button_to "Refresh accounts", refresh_accounts_login_path(login), class: "btn" %></td>
-				<td><%= button_to "delete", login, method: :delete, class: "btn" %></td>
-	    </tr>
-		<% end %>
+        <td><%= button_to "Refresh accounts", refresh_accounts_login_path(login), class: "btn" %></td>
+        <td><%= button_to "delete", login, method: :delete, class: "btn" %></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 

@@ -1,12 +1,12 @@
 <div class="row">
   <div class="col-md-3 col-md-offset-4">
-		<h2>Create new login</h2>
-		<%= bootstrap_form_tag url: '/login' do |f| %>
-			<%= f.text_field :provider_code %>
-			<%= f.text_field :country_code %>
-			<%= f.text_field :username %>
-			<%= f.password_field :password %>
-		  <%= f.submit 'Create' %>
-		<% end %>
-	</div>
+    <h2>Create new login</h2>
+    <%= bootstrap_form_tag url: '/login' do |f| %>
+      <%= f.text_field :provider_code %>
+      <%= f.text_field :country_code %>
+      <%= f.text_field :username %>
+      <%= f.password_field :password %>
+      <%= f.submit 'Create' %>
+    <% end %>
+  </div>
 </div>

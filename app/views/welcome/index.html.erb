@@ -1,18 +1,18 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-4">
-		<h3><%= link_to "Show all accounts",  login_index_path %></h3>
+    <h3><%= link_to "Show all accounts",  login_index_path %></h3>
 
-		<h4>Create new login:</h4>
+    <h4>Create new login:</h4>
 
-		<%= link_to "Create login",  new_login_path, class: "btn btn-success" %>
+    <%= link_to "Create login",  new_login_path, class: "btn btn-success" %>
 
-		<h4>Create new token:</h4>
+    <h4>Create new token:</h4>
 
-		<%= bootstrap_form_tag url: '/token' do |f| %>
-		  <%= f.submit 'Create token' %>
-		<% end %>
-	</div>
+    <%= bootstrap_form_tag url: '/token' do |f| %>
+      <%= f.submit 'Create token' %>
+    <% end %>
+  </div>
 </div>
 
 

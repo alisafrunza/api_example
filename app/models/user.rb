@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many 		 :logins, primary_key: :salt_id, foreign_key: :customer_id, dependent: :destroy
+  has_many     :logins, primary_key: :salt_id, foreign_key: :customer_id, dependent: :destroy
   has_many     :accounts, through: :logins
   has_many     :tokens, primary_key: :salt_id, foreign_key: :customer_id, dependent: :destroy
   after_create :create_customer
@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 private
 
   def create_customer
-  	customer = Saltedge::Client.new.create_customer(email)
-  	self.update_attributes(salt_id: customer["id"], salt_secret: customer["secret"])
+    customer = Saltedge::Client.new.create_customer(email)
+    self.update_attributes(salt_id: customer["id"], salt_secret: customer["secret"])
   end
 end

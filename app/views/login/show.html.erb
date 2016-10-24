@@ -1,7 +1,7 @@
 <ol class="breadcrumb">
   <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
   <li class="breadcrumb-item"><%= link_to "All logins", login_index_path %></li>
-	<li class="breadcrumb-item active"><%= @current_login.provider_name %></li>
+  <li class="breadcrumb-item active"><%= @current_login.provider_name %></li>
 </ol>
 <table class="table">
   <thead>
@@ -12,12 +12,12 @@
     </tr>
   </thead>
   <tbody>
-		<% @accounts.each do |acc| %>
-	    <tr>
-	      <td><%= link_to acc.name, account_path(acc)  %></td>
-	      <td><%= acc.balance %></td>
-	      <td><%= acc.currency_code %></td>
-	    </tr>
-		<% end %>
+    <% @accounts.each do |acc| %>
+      <tr>
+        <td><%= link_to acc.name, account_path(acc)  %></td>
+        <td><%= acc.balance %></td>
+        <td><%= acc.currency_code %></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
