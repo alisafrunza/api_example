@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160928125302) do
+ActiveRecord::Schema.define(version: 20161025160740) do
 
   create_table "accounts", force: :cascade do |t|
     t.integer  "salt_id"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20160928125302) do
     t.boolean  "daily_refresh"
     t.integer  "customer_id"
     t.string   "secret"
+    t.string   "error_class"
+    t.string   "error_message"
   end
 
   add_index "logins", ["customer_id"], name: "index_logins_on_customer_id"

@@ -4,6 +4,7 @@ class Api::CallbacksController < ApplicationController
 
   def success
     puts params
+
     login_hash = Saltedge::Client.new.show_login(params[:data][:login_id])
 
     puts login_hash
@@ -11,8 +12,10 @@ class Api::CallbacksController < ApplicationController
     login_hash["salt_id"] = login_hash.delete("id")
     login = Login.find_or_create_by(salt_id: login_hash["salt_id"])
     login.update_attributes(login_hash)
-      accounts = Saltedge::Client.new.get_accounts(login)
+
+    accounts = Saltedge::Client.new.get_accounts(login)
     save_fresh_accounts(accounts)
+
     transactions = Saltedge::Client.new.get_transactions(login)
     save_fresh_transactions(transactions)
 
@@ -36,6 +39,10 @@ class Api::CallbacksController < ApplicationController
   end
 
   def fail
-    pp params
+    puts params
+
+    # save error message to logins table
+
+    render :nothing => true
   end
 end
