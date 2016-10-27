@@ -43,7 +43,6 @@ class Api::CallbacksController < ApplicationController
 
     if params[:data][:error_class] == "InvalidCredentials"
 
-      100.times { puts "IT WORKS"}
       login_hash = Saltedge::Client.new.show_login(params[:data][:login_id])
       puts "BEFORE LOGIN_HASH"
       puts login_hash
@@ -51,6 +50,8 @@ class Api::CallbacksController < ApplicationController
       login_hash["salt_id"] = login_hash.delete("id")
       login = Login.find_or_create_by(salt_id: login_hash["salt_id"])
       login.update_attributes(login_hash)
+
+      puts "LOGIN WAS CREATED"
 
       render :nothing => true
     end
