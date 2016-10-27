@@ -70,6 +70,17 @@ class Saltedge::Client
     reconnect(url, payload)
   end
 
+  def refresh_token(login)
+    url = "tokens/refresh"
+    payload = {
+      data: {
+        login_id: login.salt_id,
+        fetch_type: "recent"
+      }
+    }
+    refresh(url, payload)
+  end
+
   def destroy_login(login)
     url = "logins/#{login.salt_id}"
     delete(url)
@@ -115,6 +126,10 @@ private
   end
 
   def reconnect(url, payload)
+    Saltedge.new.request("POST", build_url(url), payload)
+  end
+
+  def refresh(url, payload)
     Saltedge.new.request("POST", build_url(url), payload)
   end
 end

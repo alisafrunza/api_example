@@ -16,12 +16,12 @@
       <tr>
         <td><%= link_to login.provider_name, login_path(login) %></td>
 
-        <td><%= button_to "Reconnect", reconnect_login_path(login), class: "btn" %></td>
+        <td><%= button_to "Reconnect", reconnect_login_path(login), disabled: true, class: "btn" %></td>
 
         <% if login.fail_message == "Invalid credentials." %>
-          <td><%= button_to "Refresh accounts", refresh_accounts_login_path(login), disabled: true, class: "btn" %></td>
+          <td><%= button_to "Refresh", refresh_login_path(login), class: "btn" %></td>
         <% else %>
-          <td><%= button_to "Refresh accounts", refresh_accounts_login_path(login), class: "btn" %></td>
+          <td><%= button_to "Refresh", refresh_login_path(login), class: "btn" %></td>
         <% end %>
 
         <td><%= button_to "delete", login, method: :delete, class: "btn" %></td>
