@@ -41,22 +41,19 @@ class Api::CallbacksController < ApplicationController
   def fail
     puts params
 
-    if params[:data][:last_attempt][:error_class] == "InvalidCredentials"
+    login_hash = Saltedge::Client.new.show_login(params[:data][:login_id])
+    puts "BEFORE LOGIN_HASH"
+    puts login_hash
 
-      login_hash = Saltedge::Client.new.show_login(params[:data][:login_id])
-      puts "BEFORE LOGIN_HASH"
-      puts login_hash
+    login_hash["salt_id"] = login_hash.delete("id")
+    login = Login.find_or_create_by(salt_id: login_hash["salt_id"])
+    login.update_attributes(login_hash)
+    login.update_attribute(
+      :fail_message => login_hash[:last_attempt][:fail_message],
+      :fail_error_class => login_hash[:last_attempt][:fail_error_class]
+    )
+    puts "LOGIN WAS CREATED"
 
-      login_hash["salt_id"] = login_hash.delete("id")
-      login = Login.find_or_create_by(salt_id: login_hash["salt_id"])
-      login.update_attributes(login_hash)
-      login.update_attributes(
-        :fail_message => login_hash[:last_attempt][:fail_message],
-        :fail_error_class => login_hash[:last_attempt][:fail_error_class]
-      )
-      puts "LOGIN WAS CREATED"
-
-      render :nothing => true
-    end
+    render :nothing => true
   end
 end
