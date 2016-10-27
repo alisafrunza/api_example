@@ -9,6 +9,7 @@ class LoginController < ApplicationController
     end
 
     @logins = current_user.logins
+    binding.pry
   end
 
   def show
