@@ -41,8 +41,16 @@ class Api::CallbacksController < ApplicationController
   def fail
     puts params
 
-    # save error message to logins table
+    if params[:data][:error_class] == "InvalidCredentials"
+      login_hash = Saltedge::Client.new.show_login(params[:data][:login_id])
 
-    render :nothing => true
+      puts login_hash
+
+      # login_hash["salt_id"] = login_hash.delete("id")
+      # login = Login.find_or_create_by(salt_id: login_hash["salt_id"])
+      # login.update_attributes(login_hash)
+
+      render :nothing => true
+    end
   end
 end
