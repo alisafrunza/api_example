@@ -16,7 +16,7 @@
       <tr>
         <td><%= link_to login.provider_name, login_path(login) %></td>
         <% if login.fail_message == "Invalid credentials" %>
-          <%= "CANNOT BE REFRESHED" %>
+          <p>"CANNOT BE REFRESHED"</p>
         <% end %>
         <td>
           <% if can_be_refreshed?(login) %>
