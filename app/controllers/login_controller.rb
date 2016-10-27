@@ -9,7 +9,9 @@ class LoginController < ApplicationController
     end
 
     @logins = current_user.logins
-    puts @logins
+    @logins.each do |login|
+      puts params
+    end
   end
 
   def show
