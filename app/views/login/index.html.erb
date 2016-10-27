@@ -15,7 +15,7 @@
     <% @logins.each do |login| %>
       <tr>
         <td><%= link_to login.provider_name, login_path(login) %></td>
-        <% if login.fail_message == "Invalid credentials" %>
+        <% if login.fail_message == "Invalid credentials." %>
           <p>"CANNOT BE REFRESHED"</p>
         <% end %>
         <td>
