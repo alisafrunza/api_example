@@ -15,6 +15,9 @@
     <% @logins.each do |login| %>
       <tr>
         <td><%= link_to login.provider_name, login_path(login) %></td>
+        <% if login.fail_message == "Invalid password" %>
+          IT CANNOT BE UPDTES
+        <% end %>
         <td>
           <% if can_be_refreshed?(login) %>
             <%= button_to "refresh", login, method: :put, class: "btn" %>
