@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources  :login do
       member do
         post :refresh_accounts
+        post :reconnect
       end
       resources :accounts, shallow: true, only: :show
     end

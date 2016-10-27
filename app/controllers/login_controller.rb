@@ -20,6 +20,11 @@ class LoginController < ApplicationController
     redirect_to token["connect_url"]
   end
 
+  def reconnect
+    token = Saltedge::Client.new.reconnect_token(current_login)
+    redirect_to token["connect_url"]
+  end
+
   def create
     login = Saltedge::Client.new.create_login(login_params)
     login["salt_id"] = login.delete("id")
