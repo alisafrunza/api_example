@@ -18,7 +18,7 @@
 
         <td><%= button_to "Reconnect", reconnect_login_path(login), class: "btn" %></td>
 
-        <% if login.fail_message == "Invalid credentials." %>
+        <% if login.fail_message == "Invalid password." %>
           <td><%= button_to "Refresh", refresh_login_path(login), disabled: true, class: "btn" %></td>
         <% else %>
           <td><%= button_to "Refresh", refresh_login_path(login), class: "btn" %></td>
