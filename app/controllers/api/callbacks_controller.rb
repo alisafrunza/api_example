@@ -41,7 +41,7 @@ class Api::CallbacksController < ApplicationController
   def fail
     puts params
 
-    if params[:data][:last_attempt][:error_class] == "InvalidCredentials"
+    if params[:data][:error_class] == "InvalidCredentials"
 
       login_hash = Saltedge::Client.new.show_login(params[:data][:login_id])
       puts "BEFORE LOGIN_HASH"
