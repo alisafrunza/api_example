@@ -15,11 +15,17 @@
     <% @logins.each do |login| %>
       <tr>
         <td><%= link_to login.provider_name, login_path(login) %></td>
-
         <td><%= button_to "Reconnect", reconnect_login_path(login), class: "btn" %></td>
-
-        <% if login.fail_message == "Invalid password." %>
-          <td><%= button_to "Refresh", refresh_login_path(login), disabled: true, class: "btn" %></td>
+        <% if login.next_refresh_possible_at && login.next_refresh_possible_at.utc > Time.now.utc %>
+          <td>
+            <%= button_to "Refresh", refresh_login_path(login), disabled: true, class: "btn" %>
+            <%= "Login can be refreshed in " + distance_of_time_in_words(login.next_refresh_possible_at, Time.now.utc) %>
+          </td>
+        <% elsif login.fail_message == "Invalid password." %>
+          <td>
+            <%= button_to "Refresh", refresh_login_path(login), disabled: true, class: "btn" %>
+            <%= login.fail_message %>
+          </td>
         <% else %>
           <td><%= button_to "Refresh", refresh_login_path(login), class: "btn" %></td>
         <% end %>
